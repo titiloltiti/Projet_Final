@@ -11,7 +11,7 @@ import java.util.List;
 import com.excilys.librarymanager.dao.IEmpruntDao;
 import com.excilys.librarymanager.exception.DaoException;
 import com.excilys.librarymanager.model.Emprunt;
-// import com.app.utils.EstablishConnection;
+import com.excilys.librarymanager.persistence.ConnectionManager;
 
 public class EmpruntDao implements IEmpruntDao {
     private static EmpruntDao instance;

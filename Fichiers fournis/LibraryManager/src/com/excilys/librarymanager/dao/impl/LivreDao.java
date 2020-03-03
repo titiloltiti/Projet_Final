@@ -11,7 +11,7 @@ import java.util.List;
 import com.excilys.librarymanager.dao.ILivreDao;
 import com.excilys.librarymanager.exception.DaoException;
 import com.excilys.librarymanager.model.Livre;
-// import com.app.utils.EstablishConnection;
+import com.excilys.librarymanager.persistence.ConnectionManager;
 
 public class LivreDao implements ILivreDao {
     private static LivreDao instance;
@@ -34,6 +34,20 @@ public class LivreDao implements ILivreDao {
     private static final String COUNT_QUERY = "SELECT COUNT(id) AS count FROM livre;";
 
     public List<Livre> getList() throws DaoException {
+        List<Livre> books = new ArrayList<>();
+
+        try (Connection connection = ConnectionManager.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(LIST_ALL_QUERY);
+                ResultSet res = preparedStatement.executeQuery();) {
+            while (res.next()) {
+                Livre b = new Livre(res.getInt("id"),); // TODO use proper constructor with res
+                books.add(b);
+            }
+            System.out.println("GET: " + books);
+        } catch (SQLException e) {
+            throw new DaoException("Probleme lors de la recuperation de la liste des livres", e);
+        }
+        return books;
     };
 
     public Livre getById(int id) throws DaoException {
