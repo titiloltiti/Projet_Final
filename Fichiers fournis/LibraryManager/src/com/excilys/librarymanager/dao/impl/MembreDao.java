@@ -11,6 +11,7 @@ import java.util.List;
 import com.excilys.librarymanager.dao.IMembreDao;
 import com.excilys.librarymanager.exception.DaoException;
 import com.excilys.librarymanager.model.Membre;
+import com.excilys.librarymanager.model.Membre.Abonnement;
 import com.excilys.librarymanager.persistence.ConnectionManager;
 
 public class MembreDao implements IMembreDao {
@@ -91,7 +92,7 @@ public class MembreDao implements IMembreDao {
             preparedStatement.setString(3, adresse);//
             preparedStatement.setString(4, email);
             preparedStatement.setString(5, telephone);
-            preparedStatement.setString(6, "BASIC"); // Toujours incertitude sur le type
+            preparedStatement.setString(6, Abonnement.BASIC.toString()); // Toujours incertitude sur le type
             preparedStatement.executeUpdate();
             res = preparedStatement.getGeneratedKeys();
             if (res.next()) {

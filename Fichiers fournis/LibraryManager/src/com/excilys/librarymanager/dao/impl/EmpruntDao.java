@@ -88,7 +88,7 @@ public class EmpruntDao implements IEmpruntDao {
             while (res.next()) {
                 Emprunt e = new Emprunt(res.getInt("id"), res.getInt("idMembre"), res.getInt("idLivre"),
                         res.getString("dateEmprunt"), res.getString("dateRetour")); // TODO : use proper constructor
-                                                                                    // with res
+                                                                                    // with res, appeler la DAO des autres
 
                 emprunts.add(e);
             }
