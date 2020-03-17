@@ -19,7 +19,7 @@ public class LivreDao implements ILivreDao {
     private LivreDao() {
     }
 
-    public static ILivreDao getInstance() {
+    public static LivreDao getInstance() {
         if (instance == null) {
             instance = new LivreDao();
         }
@@ -40,13 +40,14 @@ public class LivreDao implements ILivreDao {
                 PreparedStatement preparedStatement = connection.prepareStatement(LIST_ALL_QUERY);
                 ResultSet res = preparedStatement.executeQuery();) {
             while (res.next()) {
-                Livre b = new Livre(res.getInt("id"),res.getString("titre"),res.getString("auteur"),res.getString("isbn")); // TODO use proper constructor with res
+                Livre b = new Livre(res.getInt("id"), res.getString("titre"), res.getString("auteur"),
+                        res.getString("isbn")); // TODO use proper constructor with res
                 books.add(b);
             }
             System.out.println("GET: " + books);
         } catch (SQLException e) {
             throw new DaoException("Probleme lors de la recuperation de la liste des livres", e);
-        }   
+        }
         return books;
     };
 
@@ -54,8 +55,7 @@ public class LivreDao implements ILivreDao {
         Livre book = new Livre();
         ResultSet res = null;
         try (Connection connection = ConnectionManager.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(GET_QUERY);
-                ) {
+                PreparedStatement preparedStatement = connection.prepareStatement(GET_QUERY);) {
 
             preparedStatement.setInt(1, id);
             res = preparedStatement.executeQuery();
@@ -63,10 +63,11 @@ public class LivreDao implements ILivreDao {
                 book.setId(res.getInt("id"));
                 book.setTitre(res.getString("titre"));
                 book.setAuteur(res.getString("auteur"));
+                book.setIsbn(res.getString("isbn"));
             }
             System.out.println("GET: " + book);
         } catch (SQLException e) {
-            throw new DaoException("Probleme lors de la récupération du livre",e);
+            throw new DaoException("Probleme lors de la récupération du livre", e);
         } finally {
             try {
                 res.close();
@@ -81,20 +82,20 @@ public class LivreDao implements ILivreDao {
         int id = -1;
         ResultSet res = null;
         try (Connection connection = ConnectionManager.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);
-                ) {
+                PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY,
+                        Statement.RETURN_GENERATED_KEYS);) {
 
             preparedStatement.setString(1, titre);
             preparedStatement.setString(2, auteur);
             preparedStatement.setString(3, isbn);
             preparedStatement.executeUpdate();
-             res = preparedStatement.getGeneratedKeys();
+            res = preparedStatement.getGeneratedKeys();
             if (res.next()) {
                 id = res.getInt(1);
             }
             res.close();
         } catch (SQLException e) {
-            throw new DaoException("Probleme lors de la création du livre",e);
+            throw new DaoException("Probleme lors de la création du livre", e);
         } finally {
             try {
                 res.close();
@@ -116,7 +117,7 @@ public class LivreDao implements ILivreDao {
             preparedStatement.executeUpdate();
             System.out.println("UPDATE : " + livre);
         } catch (SQLException e) {
-            throw new DaoException("Probleme lors de la mise à jour du livre",e);
+            throw new DaoException("Probleme lors de la mise à jour du livre", e);
         }
     };
 
@@ -128,31 +129,24 @@ public class LivreDao implements ILivreDao {
             preparedStatement.executeUpdate();
             System.out.println("DELETE : " + id);
         } catch (SQLException e) {
-            throw new DaoException("Probleme lors de la suppression du livre",e);
+            throw new DaoException("Probleme lors de la suppression du livre", e);
         }
     };
 
     public int count() throws DaoException {
         int count = -1;
-        ResultSet res = null;
         try (Connection connection = ConnectionManager.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(COUNT_QUERY);) {
+                PreparedStatement preparedStatement = connection.prepareStatement(COUNT_QUERY,
+                        Statement.RETURN_GENERATED_KEYS);
+                ResultSet res = preparedStatement.executeQuery();) {
 
-            preparedStatement.executeUpdate();
-            res = preparedStatement.getGeneratedKeys();
             if (res.next()) {
                 count = res.getInt(1);
             }
             res.close();
         } catch (SQLException e) {
-            throw new DaoException("Probleme lors du comptage des livres",e);
-        } finally {
-            try {
-                res.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+            throw new DaoException("Probleme lors du comptage des livres", e);
+        } 
         return count;
     };
 }

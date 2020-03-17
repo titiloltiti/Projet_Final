@@ -39,6 +39,12 @@ public class Membre {
         this.abonnement = abonnement;
     }
 
+    public Membre(Integer id, String nom, String prenom, String adress, String email, String telephone,
+            String abonnement) {
+        this(id, nom, prenom, adress, email, telephone,Abonnement.valueOf(abonnement));
+
+    }
+
     public Integer getId() {
         return id;
     }
@@ -94,6 +100,11 @@ public class Membre {
     public void setAbonnement(Abonnement abonnement) {
         this.abonnement = abonnement;
     }
+
+    public void setAbonnement(String abonnement) {
+        this.abonnement = Abonnement.valueOf(abonnement);
+    }
+    
 
     @Override
     public String toString() {

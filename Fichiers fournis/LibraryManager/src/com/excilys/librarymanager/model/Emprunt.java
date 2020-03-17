@@ -21,6 +21,10 @@ public class Emprunt {
         this.dateRetour = dateRetour;
     }
 
+    public Emprunt(Integer id, Membre idMembre, Livre idLivre, LocalDate dateEmprunt) {
+        this(id, idMembre, idLivre, dateEmprunt, null);
+    }
+
     public Integer getId() {
         return id;
     }
@@ -67,5 +71,4 @@ public class Emprunt {
                 + idLivre + ", idMembre=" + idMembre + "]";
     }
 
-    
 }

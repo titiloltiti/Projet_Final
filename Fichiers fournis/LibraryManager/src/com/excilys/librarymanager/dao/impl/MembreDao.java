@@ -20,7 +20,7 @@ public class MembreDao implements IMembreDao {
     private MembreDao() {
     }
 
-    public static IMembreDao getInstance() {
+    public static MembreDao getInstance() {
         if (instance == null) {
             instance = new MembreDao();
         }
@@ -63,9 +63,9 @@ public class MembreDao implements IMembreDao {
                 membre.setId(res.getInt("id"));
                 membre.setNom(res.getString("nom"));
                 membre.setPrenom(res.getString("prenom"));
-                membre.setAdresse(res.getString("adresse")); // WARNING: TYPE TEXT
+                membre.setAdress(res.getString("adresse")); 
                 membre.setEmail(res.getString("email"));
-                membre.setAbonnement(res.getString("abonnement")); // WARNING: TYPE ENUM
+                membre.setAbonnement(res.getString("abonnement")); 
                 membre.setTelephone(res.getString("telephone"));
             }
             System.out.println("GET: " + membre);
@@ -85,7 +85,7 @@ public class MembreDao implements IMembreDao {
         int id = -1;
         ResultSet res = null;
         try (Connection connection = ConnectionManager.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY);) {
+                PreparedStatement preparedStatement = connection.prepareStatement(CREATE_QUERY,Statement.RETURN_GENERATED_KEYS);) {
 
             preparedStatement.setString(1, nom);
             preparedStatement.setString(2, prenom);
@@ -117,10 +117,10 @@ public class MembreDao implements IMembreDao {
 
             preparedStatement.setString(1, membre.getNom());
             preparedStatement.setString(2, membre.getPrenom());
-            preparedStatement.setString(3, membre.getAdresse()); //
+            preparedStatement.setString(3, membre.getAdress()); 
             preparedStatement.setString(4, membre.getEmail());
             preparedStatement.setString(5, membre.getTelephone());
-            preparedStatement.setString(6, membre.getAbonnement()); //
+            preparedStatement.setString(6, membre.getAbonnement().name()); 
             preparedStatement.setInt(7, membre.getId());
             preparedStatement.executeUpdate();
             System.out.println("UPDATE : " + membre);
@@ -143,25 +143,17 @@ public class MembreDao implements IMembreDao {
 
     public int count() throws DaoException {
         int count = -1;
-        ResultSet res = null;
         try (Connection connection = ConnectionManager.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(COUNT_QUERY);) {
+                PreparedStatement preparedStatement = connection.prepareStatement(COUNT_QUERY,Statement.RETURN_GENERATED_KEYS);
+                ResultSet res = preparedStatement.executeQuery();) {
 
-            preparedStatement.executeUpdate();
-            res = preparedStatement.getGeneratedKeys();
             if (res.next()) {
                 count = res.getInt(1);
             }
             res.close();
         } catch (SQLException e) {
             throw new DaoException("Probleme lors du comptage des membres", e);
-        } finally {
-            try {
-                res.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        } 
         return count;
     };
 }
