@@ -19,7 +19,7 @@ public class LivreDao implements ILivreDao {
     private LivreDao() {
     }
 
-    public static LivreDao getInstance() {
+    public static LivreDao getInstance() { // TODO : Change all to ILivreDao
         if (instance == null) {
             instance = new LivreDao();
         }
