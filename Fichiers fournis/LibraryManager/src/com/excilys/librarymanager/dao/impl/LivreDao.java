@@ -41,7 +41,7 @@ public class LivreDao implements ILivreDao {
                 ResultSet res = preparedStatement.executeQuery();) {
             while (res.next()) {
                 Livre b = new Livre(res.getInt("id"), res.getString("titre"), res.getString("auteur"),
-                        res.getString("isbn")); // TODO use proper constructor with res
+                        res.getString("isbn"));
                 books.add(b);
             }
             System.out.println("GET: " + books);

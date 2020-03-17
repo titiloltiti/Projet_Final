@@ -41,7 +41,7 @@ public class MembreDao implements IMembreDao {
                 PreparedStatement preparedStatement = connection.prepareStatement(LIST_ALL_QUERY);
                 ResultSet res = preparedStatement.executeQuery();) {
             while (res.next()) {
-                Membre m = new Membre(res.getInt("id"),res.getString("nom"),res.getString("prenom"),res.getString("adresse"),res.getString("email"),res.getString("telephone"),res.getString("abonnement")); // TODO use proper constructor with res
+                Membre m = new Membre(res.getInt("id"),res.getString("nom"),res.getString("prenom"),res.getString("adresse"),res.getString("email"),res.getString("telephone"),res.getString("abonnement")); 
                 membres.add(m);
             }
             System.out.println("GET: " + membres);
