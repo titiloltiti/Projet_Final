@@ -77,9 +77,6 @@ public class MembreService implements IMembreService {
                 throw new ServiceException("Prénom vide lors de la création du membre");
 
             i = membreDao.create(nom.toUpperCase(), prenom, adresse, email, telephone);
-        } catch (ServiceException e) {
-            System.out.println(e.getMessage());
-
         } catch (DaoException e1) {
             System.out.println(e1.getMessage());
         }
@@ -95,8 +92,6 @@ public class MembreService implements IMembreService {
                 throw new ServiceException("Prénom vide lors de la mise à jour du membre : " + membre);
             membre.setNom(membre.getNom().toUpperCase());
             membreDao.update(membre);
-        } catch (ServiceException e) {
-            System.out.println(e.getMessage());
         } catch (DaoException e1) {
             System.out.println(e1.getMessage());
         }

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +23,7 @@
       </div>
       <div class="row">
       <div class="container">
-      <h5>Création d'un nouveau membre</h5>
+      <h5>CrÃ©ation d'un nouveau membre</h5>
         <div class="row">
 	      <form action="/LibraryManager/membre_add" method="post" class="col s12">
 	        <div class="row">
@@ -31,7 +33,7 @@
 	          </div>
 	          <div class="input-field col s6">
 	            <input id="prenom" type="text" name="prenom">
-	            <label for="prenom">Prénom</label>
+	            <label for="prenom">PrÃ©nom</label>
 	          </div>
 	        </div>
 	        <div class="row">
@@ -47,7 +49,7 @@
 	          </div>
 	          <div class="input-field col s6">
 	            <input id="telephone" type="tel" name="telephone">
-	            <label for="telephone">Téléphone</label>
+	            <label for="telephone">TÃ©lÃ©phone</label>
 	          </div>
 	        </div>
 	        <div class="row center">
@@ -59,6 +61,9 @@
 	    
       </div>
       </div>
+      <div style="text-align: center">
+         <a href="membre_list" ><button class="btn waves-effect waves-light" ><i class="fa fa-arrow-left"></i> RETOUR</button></a>
+        </div>
     </section>
   </main>
   <jsp:include page='footer.jsp'></jsp:include>

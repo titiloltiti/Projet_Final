@@ -25,7 +25,17 @@
           <h3>Message :</h3>
           <p><%= exception.getLocalizedMessage() %></p>
         </div>
+        <div class="container">
+          <h3>Cause :</h3>
+          <p><%= exception.getCause() %></p>
+        </div>
       </div>
+      <div style="text-align: center">
+				<a href="dashboard"><button
+						class="btn waves-effect waves-light">
+						<i class="fa fa-arrow-left"></i> ACCEUIL
+					</button></a>
+			</div>
     </section>
   </main>
   <jsp:include page='footer.jsp'></jsp:include>

@@ -4,7 +4,6 @@ import com.excilys.librarymanager.exception.ServiceException;
 import com.excilys.librarymanager.model.Emprunt;
 import com.excilys.librarymanager.model.Membre;
 import com.excilys.librarymanager.dao.impl.EmpruntDao;
-import com.excilys.librarymanager.dao.impl.LivreDao;
 import com.excilys.librarymanager.exception.DaoException;
 
 import java.time.LocalDate;
@@ -84,7 +83,6 @@ public class EmpruntService {
         EmpruntDao empruntDao = EmpruntDao.getInstance();
         try {
             empruntDao.create(idMembre, idLivre, dateEmprunt);
-            ;
         } catch (DaoException e1) {
             System.out.println(e1.getMessage());
         }
@@ -101,10 +99,7 @@ public class EmpruntService {
                 throw new ServiceException("Le livre a été déjà retourné : " + emprunt);
         } catch (DaoException e1) {
             System.out.println(e1.getMessage());
-        } catch (ServiceException e) {
-            System.out.println(e.getMessage());
-
-        }
+        } 
     };
 
     public int count() throws ServiceException {

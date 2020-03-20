@@ -31,18 +31,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                
+                <c:if test="${!empty livres }">
+								<c:forEach var="l" items="${livres}">
                     <tr>
-                        <td>Titre du livre</td>
-                        <td>Nom de l'auteur</td>
-                        <td>ISBN du livre</td>
-                        <td class="center"><a href="livre_details?id=idDuLivre"><ion-icon class="details" name="information-circle-outline"></ion-icon></a></td>
+                        <td><c:out value="${l.titre}" /></td>
+                        <td><c:out value="${l.auteur}" /></td>
+                        <td><c:out value="${l.isbn}" /></td>
+                        <td class="center"><a href="livre_details?id=<c:out value="${l.id}" />"><ion-icon class="details" name="information-circle-outline"></ion-icon></a></td>
                     </tr>
+                    </c:forEach>
+                    </c:if>
                     
-                    <!-- TODO : parcourir la liste des livres et les afficher selon la structure d'exemple ci-dessus -->
+                   
                 </tbody>
             </table>
           </div>
+        </div>
+        <div style="text-align: center">
+         <a href="livre_add" ><button class="btn waves-effect waves-light orange" ><i class="fa fa-plus-square"></i> AJOUTER</button></a>
+         <a href="dashboard" ><button class="btn waves-effect waves-light" ><i class="fa fa-arrow-left"></i> RETOUR</button></a>
         </div>
     </section>
   </main>

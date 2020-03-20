@@ -58,7 +58,7 @@ public class LivreService implements ILivreService {
         LivreDao livreDao = LivreDao.getInstance();
         Livre livre = new Livre();
         try {
-            livreDao.getById(id);
+            livre = livreDao.getById(id);
         } catch (DaoException e1) {
             System.out.println(e1.getMessage());
         }
@@ -72,8 +72,6 @@ public class LivreService implements ILivreService {
             if (titre == "") 
                 throw new ServiceException("Titre vide lors de la création du livre");
             i = livreDao.create(titre, auteur, isbn);
-        } catch (ServiceException e) {
-            System.out.println(e.getMessage());
         } catch (DaoException e1) {
             System.out.println(e1.getMessage());
         }
@@ -86,8 +84,6 @@ public class LivreService implements ILivreService {
             if (livre.getTitre() == "") 
                 throw new ServiceException("Titre vide lors de la mise à jour du livre : " + livre);
             livreDao.update(livre);
-        } catch (ServiceException e) {
-            System.out.println(e.getMessage());
         } catch (DaoException e1) {
             System.out.println(e1.getMessage());
         }

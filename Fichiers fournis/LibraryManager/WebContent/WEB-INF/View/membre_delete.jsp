@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
@@ -21,21 +23,23 @@
       </div>
       <div class="row">
       <div class="container">
-      <h5>Suppression du membre n°312</h5> <!-- TODO : remplacer 312 par l'id du membre -->
+      <h5>Suppression du membre nÂ°<c:out value="${membre.id}"/></h5>
         <div class="row">
-          <p>Êtes-vous sûr de vouloir supprimer la fiche de prenomDuMembre nomDuMembre ?</p> <!-- TODO : remplacer prenomDuMembre et nomDuMembre par les valeurs correspondantes -->
+          <p>ÃŠtes-vous sÃ»r de vouloir supprimer la fiche de <c:out value="${membre.nom}"/> <c:out value="${membre.prenom}"/> ?</p> 
 	      <form action="/LibraryManager/membre_delete" method="post" class="col s12">
-            <input type="hidden" value="idDuMembre" name="id"> <!-- TODO : remplacer idDuMembre par l'id du membre -->
-	        <div class="row center">
+            <input type="hidden" value="<c:out value="${membre.id}"/>" name="id"> 
 	          <button class="btn waves-effect waves-light red" type="submit" name="action">Supprimer
 	            <i class="material-icons right">delete</i>
 	          </button>
-	          <a class="btn waves-effect waves-light orange" href="/LibraryManager/membre_details?id=idDuMembre">Annuler</a> <!-- TODO : remplacer idDuMembre par l'id du membre -->
+	          <a class="btn waves-effect waves-light orange" href="/LibraryManager/membre_details?id=<c:out value="${membre.id}"/>">Annuler</a>
 	        </div>
 	      </form>
 	    </div>	    
       </div>
       </div>
+      <div style="text-align: center">
+         <a href="membre_details?id=<c:out value="${membre.id}"/>" ><button class="btn waves-effect waves-light" ><i class="fa fa-arrow-left"></i> RETOUR</button></a>
+        </div>
     </section>
   </main>
   <jsp:include page='footer.jsp'></jsp:include>

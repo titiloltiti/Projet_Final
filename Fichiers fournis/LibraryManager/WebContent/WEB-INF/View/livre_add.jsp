@@ -49,6 +49,9 @@
 	    
       </div>
       </div>
+      <div style="text-align: center">
+         <a href="livre_list" ><button class="btn waves-effect waves-light" ><i class="fa fa-arrow-left"></i> RETOUR</button></a>
+        </div>
     </section>
   </main>
   <jsp:include page='footer.jsp'></jsp:include>
